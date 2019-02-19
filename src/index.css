@@ -2,7 +2,10 @@
 
 :root {
 	--white: #FFFFFF;
-	--dark-grey: #1B1B1B;
+	--dark-grey: #2C3E50;
+	--light-grey: #34495e;
+	--red: #C0392B;
+	--green: #27AE60;
 	--font-advent: 'Advent Pro', sans-serif;
 	--font-archivo: 'Archivo Narrow', sans-serif;
 }

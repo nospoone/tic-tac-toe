@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "classnames": "^2.2.6",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-scripts": "2.1.5"
@@ -14,7 +15,10 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": ["xo", "xo-react"],
+    "extends": [
+      "xo",
+      "xo-react"
+    ],
     "env": {
       "jest": true,
       "browser": true
@@ -32,6 +36,7 @@
     "eslint-config-xo": "^0.26.0",
     "eslint-config-xo-react": "^0.18.0",
     "eslint-plugin-react": "^7.12.4",
+    "prop-types": "^15.7.2",
     "react-test-renderer": "^16.8.2"
   }
 }

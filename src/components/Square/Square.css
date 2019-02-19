@@ -1,1 +1,24 @@
-.square {}
+.square {
+	box-sizing: border-box;
+	width: 150px;
+	height: 150px;
+	background: var(--light-grey);
+	border-radius: 5px;
+	padding: 15px;
+}
+
+.square__image {
+	width: 100%;
+	height: 100%;
+}
+
+.square__image--red {
+	stroke: var(--red);
+	fill: var(--red);
+}
+
+.square__image--green {
+	stroke: var(--green);
+	fill: var(--green);
+}
+

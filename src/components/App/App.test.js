@@ -1,10 +1,12 @@
 import React from 'react';
 import {shallow} from 'enzyme';
+
 import App from './App';
+import Title from '../Title/Title';
 
 describe('App', () => {
 	it('should render a <div />', () => {
 		const wrapper = shallow(<App/>);
-		expect(wrapper.find('div').length).toEqual(1);
+		expect(wrapper.find(Title).length).toEqual(1);
 	});
 });

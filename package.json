@@ -14,12 +14,23 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": ["xo", "xo-react"],
+    "env": {
+      "jest": true
+    }
   },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.9.1",
+    "eslint-config-xo": "^0.26.0",
+    "eslint-config-xo-react": "^0.18.0",
+    "eslint-plugin-react": "^7.12.4",
+    "react-test-renderer": "^16.8.2"
+  }
 }

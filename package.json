@@ -16,7 +16,8 @@
   "eslintConfig": {
     "extends": ["xo", "xo-react"],
     "env": {
-      "jest": true
+      "jest": true,
+      "browser": true
     }
   },
   "browserslist": [

@@ -4,6 +4,7 @@ import {shallow} from 'enzyme';
 import App from './App';
 import Title from '../Title/Title';
 import Square from '../Square/Square';
+import Undo from '../Undo/Undo';
 
 describe('App', () => {
 	it('should render a <Fragment /> as its root', () => {
@@ -24,5 +25,13 @@ describe('App', () => {
 		wrapper.find('div.row').forEach(row => {
 			expect(row.find(Square).length).toBe(3);
 		});
+	});
+	it('should render a <div/> with the `status` class', () => {
+		const wrapper = shallow(<App/>);
+		expect(wrapper.find('div.status').length).toBe(1);
+	});
+	it('should render an <Undo/> button inside a <div/> with the `status` class', () => {
+		const wrapper = shallow(<App/>);
+		expect(wrapper.find('div.status').find(Undo).length).toBe(1);
 	});
 });

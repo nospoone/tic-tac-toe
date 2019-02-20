@@ -13,16 +13,16 @@ describe('Square', () => {
 		const wrapper = shallow(<Square mark="x"/>);
 		expect(wrapper.find(Mark).length).toEqual(1);
 		expect(wrapper.find(Mark).prop('mark')).toEqual('x');
-		expect(wrapper.find(Mark).prop('active')).toEqual(false);
+		expect(wrapper.find(Mark).prop('active')).toEqual(true);
 	});
 	it('should render a <Mark /> with its `mark` prop set to `x` when the `mark` prop is `x`', () => {
 		const wrapper = shallow(<Square mark="o"/>);
 		expect(wrapper.find(Mark).length).toEqual(1);
 		expect(wrapper.find(Mark).prop('mark')).toEqual('o');
-		expect(wrapper.find(Mark).prop('active')).toEqual(false);
+		expect(wrapper.find(Mark).prop('active')).toEqual(true);
 	});
-	it('should render a <Mark /> with its `active` prop set to `true` when the `active` prop is `true`', () => {
-		const wrapper = shallow(<Square active mark="o"/>);
+	it('should render a <Mark /> with its `active` prop set to `true` when the `mark` prop is not `undefined`', () => {
+		const wrapper = shallow(<Square mark="o"/>);
 		expect(wrapper.find(Mark).length).toEqual(1);
 		expect(wrapper.find(Mark).prop('mark')).toEqual('o');
 		expect(wrapper.find(Mark).prop('active')).toEqual(true);

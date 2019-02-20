@@ -6,3 +6,11 @@
 	border-radius: 5px;
 	padding: 15px;
 }
+
+.square:first-child {
+	margin-right: 10px;
+}
+
+.square:last-child {
+	margin-left: 10px;
+}

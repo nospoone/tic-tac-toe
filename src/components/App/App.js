@@ -9,9 +9,21 @@ class App extends Component {
 		return (
 			<>
 				<Title/>
-				<Square mark="o"/>
-				<Square mark="x"/>
-				<Square/>
+				<div className="row">
+					<Square/>
+					<Square/>
+					<Square/>
+				</div>
+				<div className="row">
+					<Square/>
+					<Square/>
+					<Square/>
+				</div>
+				<div className="row">
+					<Square/>
+					<Square/>
+					<Square/>
+				</div>
 			</>
 		);
 	}

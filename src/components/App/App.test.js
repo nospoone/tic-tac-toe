@@ -14,7 +14,6 @@ describe('App', () => {
 		const wrapper = shallow(<App/>);
 		expect(wrapper.find(Title).length).toBe(1);
 	});
-	// HTML structure (rows w/ squares)
 	it('should contain three <div/> with the `row` class', () => {
 		const wrapper = shallow(<App/>);
 		expect(wrapper.find('div.row').length).toBe(3);

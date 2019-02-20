@@ -5,6 +5,15 @@
 	background: var(--light-grey);
 	border-radius: 5px;
 	padding: 15px;
+	cursor: pointer;
+}
+
+.square--pulse {
+	animation: pulse 2s ease-in-out infinite;
+}
+
+.square--disabled {
+	cursor: initial;
 }
 
 .square:first-child {
@@ -13,4 +22,16 @@
 
 .square:last-child {
 	margin-left: 10px;
+}
+
+@keyframes pulse {
+	0% {
+		background: var(--light-grey);
+	}
+	50% {
+		background: var(--lighter-grey);
+	}
+	100% {
+		background: var(--light-grey);
+	}
 }

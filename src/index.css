@@ -3,7 +3,8 @@
 :root {
 	--white: #FFFFFF;
 	--dark-grey: #2C3E50;
-	--light-grey: #34495e;
+	--light-grey: #34495E;
+	--lighter-grey: #4E6378;
 	--red: #C0392B;
 	--green: #27AE60;
 	--font-advent: 'Advent Pro', sans-serif;

@@ -10,19 +10,19 @@ class App extends Component {
 			<>
 				<Title/>
 				<div className="row">
-					<Square/>
-					<Square/>
-					<Square/>
-				</div>
-				<div className="row">
-					<Square/>
-					<Square/>
+					<Square pulse mark="x"/>
+					<Square mark="o"/>
 					<Square/>
 				</div>
 				<div className="row">
-					<Square/>
-					<Square/>
-					<Square/>
+					<Square mark="o"/>
+					<Square pulse mark="x"/>
+					<Square mark="x"/>
+				</div>
+				<div className="row">
+					<Square mark="x"/>
+					<Square mark="o"/>
+					<Square pulse mark="x"/>
 				</div>
 			</>
 		);

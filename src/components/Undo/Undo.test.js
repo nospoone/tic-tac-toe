@@ -12,7 +12,7 @@ describe('Undo', () => {
 		expect(wrapper.find('span.undo').text()).toEqual('Undo last move');
 	});
 	it('should have the `undo--disabled` class when the `disabled` prop is set', () => {
-		const wrapper = shallow(<Undo/>);
+		const wrapper = shallow(<Undo disabled/>);
 		expect(wrapper.find('span.undo--disabled').length).toEqual(1);
 	});
 });

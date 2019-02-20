@@ -27,12 +27,6 @@ describe('Square', () => {
 		expect(wrapper.find(Mark).prop('mark')).toEqual('o');
 		expect(wrapper.find(Mark).prop('active')).toEqual(true);
 	});
-	it('should render a <Mark /> when the `mark` prop is `null`', () => {
-		const wrapper = shallow(<Square mark={null}/>);
-		expect(wrapper.find(Mark).length).toEqual(1);
-		expect(wrapper.find(Mark).prop('active')).toEqual(false);
-		expect(wrapper.find(Mark).prop('mark')).toEqual(undefined);
-	});
 	it('should render a <Mark /> when the `mark` prop is `undefined`', () => {
 		const wrapper = shallow(<Square/>);
 		expect(wrapper.find(Mark).length).toEqual(1);

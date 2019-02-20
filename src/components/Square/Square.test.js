@@ -9,6 +9,14 @@ describe('Square', () => {
 		const wrapper = shallow(<Square/>);
 		expect(wrapper.find('div').length).toEqual(1);
 	});
+	it('should render a <div /> with the `square--pulse` class when the `pulse` prop is set', () => {
+		const wrapper = shallow(<Square pulse/>);
+		expect(wrapper.find('div.square--pulse').length).toEqual(1);
+	});
+	it('should render a <div /> with the `square--disabled` when the `mark` prop is set', () => {
+		const wrapper = shallow(<Square mark="x"/>);
+		expect(wrapper.find('div.square--disabled').length).toEqual(1);
+	});
 	it('should render a <Mark /> with its `mark` prop set to `x` when the `mark` prop is `x`', () => {
 		const wrapper = shallow(<Square mark="x"/>);
 		expect(wrapper.find(Mark).length).toEqual(1);

@@ -9,6 +9,6 @@ describe('Title', () => {
 	});
 	it('should have `Noughts & Crosses` as its text', () => {
 		const wrapper = shallow(<Title/>);
-		expect(wrapper.text()).toEqual('Noughts & Crosses');
+		expect(wrapper.find('h1').text()).toEqual('Noughts & Crosses');
 	});
 });

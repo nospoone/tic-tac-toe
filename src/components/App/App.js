@@ -27,7 +27,6 @@ class App extends Component {
 				</div>
 				<div className="status">
 					<Undo/>
-					<Undo disabled/>
 				</div>
 			</>
 		);

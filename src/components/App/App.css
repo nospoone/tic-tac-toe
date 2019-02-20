@@ -5,3 +5,7 @@
 .row:not(:last-child) {
 	margin-bottom: 10px;
 }
+
+.status {
+	display: flex;
+}

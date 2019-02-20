@@ -7,6 +7,7 @@
 	--lighter-grey: #4E6378;
 	--red: #C0392B;
 	--green: #27AE60;
+	--orange: #F39C12;
 	--font-advent: 'Advent Pro', sans-serif;
 	--font-archivo: 'Archivo Narrow', sans-serif;
 }
@@ -21,4 +22,5 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	user-select: none;
 }

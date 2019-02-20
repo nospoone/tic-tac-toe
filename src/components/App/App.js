@@ -3,6 +3,7 @@ import './App.css';
 
 import Title from '../Title/Title';
 import Square from '../Square/Square';
+import Undo from '../Undo/Undo';
 
 class App extends Component {
 	render() {
@@ -23,6 +24,10 @@ class App extends Component {
 					<Square mark="x"/>
 					<Square mark="o"/>
 					<Square pulse mark="x"/>
+				</div>
+				<div className="status">
+					<Undo/>
+					<Undo disabled/>
 				</div>
 			</>
 		);

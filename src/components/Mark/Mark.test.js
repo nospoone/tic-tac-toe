@@ -6,13 +6,6 @@ import Mark from '../Mark/Mark';
 describe('Mark', () => {
 	const spy = jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
-	it('should not render if the `mark` prop is missing', () => {
-		shallow(<Mark/>);
-		expect(spy).toHaveBeenCalled();
-		expect(spy.mock.calls[0][0]).toContain('The prop `mark` is marked as required');
-		spy.mockClear();
-	});
-
 	it('should not render if the `mark` prop is invalid', () => {
 		shallow(<Mark mark="invalid"/>);
 		expect(spy).toHaveBeenCalled();

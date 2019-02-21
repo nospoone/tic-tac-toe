@@ -49,4 +49,26 @@ describe('Game', () => {
 			expect(game.board).toBe(board);
 		});
 	});
+
+	describe('History', () => {
+		const board = [
+			['x', 'o', 'o'],
+			['o', 'x', 'o'],
+			[null, 'x', 'x']
+		];
+		const emptyBoard = [
+			[null, null, null],
+			[null, null, null],
+			[null, null, null]
+		];
+
+		beforeEach(() => {
+			game.board = board;
+		});
+
+		it('should correctly reset the board state', () => {
+			game.reset();
+			expect(game.board).toBe(emptyBoard);
+		});
+	});
 });

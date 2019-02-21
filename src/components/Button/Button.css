@@ -8,15 +8,19 @@
 	cursor: pointer;
 }
 
-.button--disabled {
-	cursor: initial;
-	opacity: 0.25;
+.button:first-child {
+	margin-right: 10px;
 }
 
 .button:before {
 	position: relative;
 	font-size: 14px;
 	margin-right: 10px;
+}
+
+.button--disabled {
+	cursor: initial;
+	opacity: 0.25;
 }
 
 .button--red {

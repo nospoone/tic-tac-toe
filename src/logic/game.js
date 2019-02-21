@@ -27,4 +27,10 @@ export default class Game {
 		localStorage.setItem(this.boardHistoryKey, serializedBoard);
 		return serializedBoard;
 	}
+
+	deserialize() {
+		const deserializedBoard = JSON.parse(localStorage.getItem(this.boardHistoryKey));
+		this.board = deserializedBoard;
+		return deserializedBoard;
+	}
 }

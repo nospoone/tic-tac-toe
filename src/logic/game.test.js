@@ -68,7 +68,7 @@ describe('Game', () => {
 
 		it('should correctly reset the board state', () => {
 			game.reset();
-			expect(game.board).toBe(emptyBoard);
+			expect(game.board).toEqual(emptyBoard);
 		});
 	});
 });

@@ -33,4 +33,8 @@ export default class Game {
 		this.board = deserializedBoard;
 		return deserializedBoard;
 	}
+
+	reset() {
+		this.board = this.emptyBoard;
+	}
 }

@@ -48,12 +48,13 @@ describe('Game', () => {
 		});
 		it('should find draws', () => {
 			const boards = [
-				[['x', 'o', 'x'], ['o', 'x', 'o'], ['o', 'o', 'x']],
-				[['o', 'x', 'o'], ['x', 'o', 'x'], ['x', 'o', 'x']]
+				{player: 'x', x: 0, y: 0, board: [['x', 'o', 'o'], ['o', 'x', 'x'], ['x', 'x', 'o']]},
+				{player: 'x', x: 0, y: 0, board: [['x', 'x', 'o'], ['o', 'o', 'x'], ['x', 'o', 'x']]},
+				{player: 'x', x: 0, y: 0, board: [['x', 'x', 'o'], ['o', 'o', 'x'], ['x', 'x', 'o']]}
 			];
 
 			boards.forEach(board => {
-				expect(game.solve(board)).toBe(false);
+				expect(game.solve(board.board, board.x, board.y)).toBe(false);
 			});
 		});
 	});

@@ -1,4 +1,4 @@
-.undo {
+.button {
 	background: var(--orange);
 	font-size: 22px;
 	color: var(--white);
@@ -9,14 +9,13 @@
 	cursor: pointer;
 }
 
-.undo--disabled {
+.button--disabled {
 	cursor: initial;
 	opacity: 0.25;
 }
 
-.undo:before {
+.button:before {
 	position: relative;
-	content: '◀';
 	font-size: 14px;
 	margin-right: 10px;
 }

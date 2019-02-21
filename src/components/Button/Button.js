@@ -3,25 +3,26 @@ import PropTypes from 'prop-types';
 import className from 'classnames';
 import './Button.css';
 
-export default class Undo extends Component {
+export default class Button extends Component {
 	render() {
 		return (
 			<span
 				className={className({
-					undo: true,
-					'undo--disabled': this.props.disabled
+					button: true,
+					'button--disabled': this.props.disabled
 				})}
 			>
-				Undo last move
+				{this.props.children}
 			</span>
 		);
 	}
 }
 
-Undo.propTypes = {
-	disabled: PropTypes.bool
+Button.propTypes = {
+	disabled: PropTypes.bool,
+	children: PropTypes.string.isRequired
 };
 
-Undo.defaultProps = {
+Button.defaultProps = {
 	disabled: false
 };

@@ -3,7 +3,7 @@ import './App.css';
 
 import Title from '../Title/Title';
 import Square from '../Square/Square';
-import Undo from '../Undo/Undo';
+import Button from '../Button/Button';
 import TurnIndicator from '../TurnIndicator/TurnIndicator';
 
 class App extends Component {

@@ -3,6 +3,20 @@ import {shallow} from 'enzyme';
 import Button from './Button';
 
 describe('Button', () => {
+	it('should log a warning if the `children` prop is missing', () => {
+		const spy = jest.spyOn(global.console, 'error').mockImplementation(() => { });
+		shallow(<Button/>);
+		expect(spy).toHaveBeenCalled();
+		expect(spy.mock.calls[0][0]).toContain('The prop `children` is marked as required in `Button`, but its value is `undefined`');
+		spy.mockClear();
+	});
+	it('should log a warning if the `children` prop is invalid', () => {
+		const spy = jest.spyOn(global.console, 'error').mockImplementation(() => { });
+		shallow(<Button><span>invalid</span></Button>);
+		expect(spy).toHaveBeenCalled();
+		expect(spy.mock.calls[0][0]).toContain('Invalid prop `children` of type `object` supplied to `Button`');
+		spy.mockClear();
+	});
 	it('should render a <span/> with a `button` class', () => {
 		const wrapper = shallow(<Button/>);
 		expect(wrapper.find('span.button').length).toEqual(1);

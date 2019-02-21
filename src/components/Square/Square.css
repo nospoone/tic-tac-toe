@@ -30,6 +30,7 @@
 	}
 	50% {
 		background: var(--lighter-grey);
+		box-shadow: 0 0 15px 0 var(--lighter-grey);
 	}
 	100% {
 		background: var(--light-grey);

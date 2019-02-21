@@ -5,9 +5,8 @@ export default class Game {
 			[null, null, null],
 			[null, null, null]
 		];
-
 		this.boardHistoryKey = 'naughts-and-crosses__history';
-		this.board = this.emptyBoard;
+		this.reset();
 	}
 
 	storeMove(player, x, y) {
@@ -23,18 +22,21 @@ export default class Game {
 	}
 
 	serialize() {
-		const serializedBoard = JSON.stringify(this.board);
-		localStorage.setItem(this.boardHistoryKey, serializedBoard);
-		return serializedBoard;
+		const serializedHistory = JSON.stringify(this.history);
+		localStorage.setItem(this.boardHistoryKey, serializedHistory);
+		return serializedHistory;
 	}
 
 	deserialize() {
-		const deserializedBoard = JSON.parse(localStorage.getItem(this.boardHistoryKey));
-		this.board = deserializedBoard;
-		return deserializedBoard;
+		const deserializedHistory = JSON.parse(localStorage.getItem(this.boardHistoryKey));
+		this.history = deserializedHistory;
+		this.board = deserializedHistory[deserializedHistory.length - 1];
+		return deserializedHistory;
 	}
 
 	reset() {
+		this.history = [this.emptyBoard];
+		this.historyCursor = 0;
 		this.board = this.emptyBoard;
 	}
 }

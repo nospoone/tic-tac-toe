@@ -46,7 +46,7 @@ describe('Game', () => {
 		});
 		it('should correctly deserialize the board state from localStorage', () => {
 			game.deserialize();
-			expect(game.board).toBe(board);
+			expect(game.board).toEqual(board);
 		});
 	});
 

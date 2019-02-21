@@ -17,4 +17,27 @@ describe('Game', () => {
 			game.storeMove('o', 13, 21);
 		}).toThrow('Move position out of bounds.');
 	});
+	it('should correctly serialize the board state', () => {
+		const game = new Game();
+		const board = [
+			['x', null, 'o'],
+			[null, 'x', 'o'],
+			[null, null, 'x']
+		];
+		game.board = board;
+
+		const serializedBoard = game.serialize();
+		expect(serializedBoard).toBe(JSON.stringify(board));
+	});
+	it('should correctly serialize the board state to localStorage', () => {
+		const game = new Game();
+		const board = [
+			['x', null, 'o'],
+			[null, 'x', 'o'],
+			[null, null, 'x']
+		];
+		game.board = board;
+		game.serialize();
+		expect(localStorage.__STORE__[game.boardHistoryKey]).toBe(JSON.stringify(board));
+	});
 });

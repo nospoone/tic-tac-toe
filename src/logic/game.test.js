@@ -67,7 +67,7 @@ describe('Game', () => {
 		it('should correctly reset the board state', () => {
 			game.reset();
 			expect(game.board).toEqual(emptyBoard);
-			expect(game.history).toEqual([]);
+			expect(game.history).toEqual([emptyBoard]);
 			expect(game.historyCursor).toBe(0);
 		});
 

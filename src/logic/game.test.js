@@ -25,7 +25,6 @@ describe('Game', () => {
 			[null, null, 'x']
 		];
 		game.board = board;
-
 		const serializedBoard = game.serialize();
 		expect(serializedBoard).toBe(JSON.stringify(board));
 	});

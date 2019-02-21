@@ -62,7 +62,6 @@ describe('Game', () => {
 		const history = [
 			[[null, null, null], [null, null, null], [null, null, null]],
 			[[null, null, null], [null, null, null], [null, null, 'x']],
-			[[null, null, null], [null, null, null], [null, null, 'x']],
 			[['x', null, null], [null, 'x', null], [null, null, 'x']],
 			[['x', null, null], ['x', 'x', null], [null, null, 'x']],
 			[['x', null, null], ['x', 'x', null], ['x', null, 'x']],

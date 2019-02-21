@@ -24,26 +24,26 @@ describe('Game', () => {
 		});
 		it('should find all winning possiblities', () => {
 			const boards = [
-				[['x', 'x', 'x'], [null, null, null], [null, null, null]],
-				[[null, null, null], ['x', 'x', 'x'], [null, null, null]],
-				[[null, null, null], [null, null, null], ['x', 'x', 'x']],
-				[['x', null, null], ['x', null, null], ['x', null, null]],
-				[[null, 'x', null], [null, 'x', null], [null, 'x', null]],
-				[[null, null, 'x'], [null, null, 'x'], [null, null, 'x']],
-				[['x', null, null], [null, 'x', null], [null, null, 'x']],
-				[[null, null, 'x'], [null, 'x', null], ['x', null, null]],
-				[['o', 'o', 'o'], [null, null, null], [null, null, null]],
-				[[null, null, null], ['o', 'o', 'o'], [null, null, null]],
-				[[null, null, null], [null, null, null], ['o', 'o', 'o']],
-				[['o', null, null], ['o', null, null], ['o', null, null]],
-				[[null, 'o', null], [null, 'o', null], [null, 'o', null]],
-				[[null, null, 'o'], [null, null, 'o'], [null, null, 'o']],
-				[['o', null, null], [null, 'o', null], [null, null, 'o']],
-				[[null, null, 'o'], [null, 'o', null], ['o', null, null]]
+				{player: 'x', x: 0, y: 0, board: [['x', 'x', 'x'], [null, null, null], [null, null, null]]},
+				{player: 'x', x: 0, y: 1, board: [[null, null, null], ['x', 'x', 'x'], [null, null, null]]},
+				{player: 'x', x: 0, y: 2, board: [[null, null, null], [null, null, null], ['x', 'x', 'x']]},
+				{player: 'x', x: 0, y: 0, board: [['x', null, null], ['x', null, null], ['x', null, null]]},
+				{player: 'x', x: 1, y: 0, board: [[null, 'x', null], [null, 'x', null], [null, 'x', null]]},
+				{player: 'x', x: 2, y: 0, board: [[null, null, 'x'], [null, null, 'x'], [null, null, 'x']]},
+				{player: 'x', x: 0, y: 0, board: [['x', null, null], [null, 'x', null], [null, null, 'x']]},
+				{player: 'x', x: 2, y: 0, board: [[null, null, 'x'], [null, 'x', null], ['x', null, null]]},
+				{player: 'o', x: 0, y: 0, board: [['o', 'o', 'o'], [null, null, null], [null, null, null]]},
+				{player: 'o', x: 0, y: 1, board: [[null, null, null], ['o', 'o', 'o'], [null, null, null]]},
+				{player: 'o', x: 0, y: 2, board: [[null, null, null], [null, null, null], ['o', 'o', 'o']]},
+				{player: 'o', x: 0, y: 0, board: [['o', null, null], ['o', null, null], ['o', null, null]]},
+				{player: 'o', x: 1, y: 0, board: [[null, 'o', null], [null, 'o', null], [null, 'o', null]]},
+				{player: 'o', x: 2, y: 0, board: [[null, null, 'o'], [null, null, 'o'], [null, null, 'o']]},
+				{player: 'o', x: 0, y: 0, board: [['o', null, null], [null, 'o', null], [null, null, 'o']]},
+				{player: 'o', x: 2, y: 0, board: [[null, null, 'o'], [null, 'o', null], ['o', null, null]]}
 			];
 
 			boards.forEach(board => {
-				expect(game.solve(board)).toBe(true);
+				expect(game.solve(board.board, board.x, board.y)).toBe(board.player);
 			});
 		});
 		it('should find draws', () => {

@@ -44,4 +44,8 @@ export default class Game {
 		this.historyCursor--;
 		this.board = this.history[this.historyCursor];
 	}
+
+	solve(board, x, y) {
+
+	}
 }

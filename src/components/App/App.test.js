@@ -5,6 +5,7 @@ import App from './App';
 import Title from '../Title/Title';
 import Square from '../Square/Square';
 import Undo from '../Undo/Undo';
+import TurnIndicator from '../TurnIndicator/TurnIndicator';
 
 describe('App', () => {
 	it('should render a <Fragment /> as its root', () => {
@@ -33,5 +34,9 @@ describe('App', () => {
 	it('should render an <Undo/> button inside a <div/> with the `status` class', () => {
 		const wrapper = shallow(<App/>);
 		expect(wrapper.find('div.status').find(Undo).length).toBe(1);
+	});
+	it('should render a <TurnIndicator/> component inside a <div/> with the `status` class', () => {
+		const wrapper = shallow(<App/>);
+		expect(wrapper.find('div.status').find(TurnIndicator).length).toBe(1);
 	});
 });

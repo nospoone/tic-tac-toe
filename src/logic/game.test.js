@@ -26,16 +26,16 @@ describe('Game', () => {
 
 	describe('Serialization & History', () => {
 		const history = [
-			JSON.stringify([[null, null, null], [null, null, null], [null, null, null]]),
-			JSON.stringify([[null, null, null], [null, null, null], [null, null, 'x']]),
-			JSON.stringify([[null, null, null], [null, null, null], [null, null, 'x']]),
-			JSON.stringify([['x', null, null], [null, 'x', null], [null, null, 'x']]),
-			JSON.stringify([['x', null, null], ['x', 'x', null], [null, null, 'x']]),
-			JSON.stringify([['x', null, null], ['x', 'x', null], ['x', null, 'x']]),
-			JSON.stringify([['x', null, null], ['x', 'x', null], ['x', 'x', 'x']]),
-			JSON.stringify([['x', 'x', null], ['x', 'x', null], ['x', 'x', 'x']]),
-			JSON.stringify([['x', 'x', 'x'], ['x', 'x', null], ['x', 'x', 'x']]),
-			JSON.stringify([['x', 'x', 'x'], ['x', 'x', 'x'], ['x', 'x', 'x']])
+			[[null, null, null], [null, null, null], [null, null, null]],
+			[[null, null, null], [null, null, null], [null, null, 'x']],
+			[[null, null, null], [null, null, null], [null, null, 'x']],
+			[['x', null, null], [null, 'x', null], [null, null, 'x']],
+			[['x', null, null], ['x', 'x', null], [null, null, 'x']],
+			[['x', null, null], ['x', 'x', null], ['x', null, 'x']],
+			[['x', null, null], ['x', 'x', null], ['x', 'x', 'x']],
+			[['x', 'x', null], ['x', 'x', null], ['x', 'x', 'x']],
+			[['x', 'x', 'x'], ['x', 'x', null], ['x', 'x', 'x']],
+			[['x', 'x', 'x'], ['x', 'x', 'x'], ['x', 'x', 'x']]
 		];
 		const serializedHistory = JSON.stringify(history);
 		const emptyBoard = [
@@ -72,10 +72,7 @@ describe('Game', () => {
 		});
 
 		it('should correctly undo the board state to the beginning', () => {
-			game.history = history;
-			game.historyCursor = history.length - 1;
-
-			for (let i = 0; i < history.length; i++) {
+			for (let i = 0; i < history.length - 1; i++) {
 				game.undo();
 			}
 

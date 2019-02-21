@@ -27,7 +27,10 @@ class App extends Component {
 					<Square pulse mark="x"/>
 				</div>
 				<div className="status">
-					<Undo/>
+					<div className="button-container">
+						<Button>Undo</Button>
+						<Button>Reset</Button>
+					</div>
 					<TurnIndicator finished player="x"/>
 				</div>
 			</>

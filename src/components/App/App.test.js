@@ -4,7 +4,7 @@ import {shallow} from 'enzyme';
 import App from './App';
 import Title from '../Title/Title';
 import Square from '../Square/Square';
-import Undo from '../Undo/Undo';
+import Button from '../Button/Button';
 import TurnIndicator from '../TurnIndicator/TurnIndicator';
 
 describe('App', () => {

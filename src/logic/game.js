@@ -46,6 +46,36 @@ export default class Game {
 	}
 
 	solve(board, x, y) {
+		const player = board[y][x];
+		const counts = {
+			column: 0,
+			row: 0,
+			diagonal: 0,
+			reverseDiagonal: 0
+		};
 
+		for (let i = 0; i < 3; i++) {
+			if (board[i][x] === player) {
+				counts.column++;
+			}
+
+			if (board[y][i] === player) {
+				counts.row++;
+			}
+
+			if (board[i][i] === player) {
+				counts.diagonal++;
+			}
+
+			if (board[3 - (i + 1)][i] === player) {
+				counts.reverseDiagonal++;
+			}
+		}
+
+		if (counts.column === 3 || counts.row === 3 || counts.diagonal === 3 || counts.reverseDiagonal === 3) {
+			return player;
+		}
+
+		return false;
 	}
 }

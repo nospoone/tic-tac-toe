@@ -4,6 +4,7 @@ import './App.css';
 import Title from '../Title/Title';
 import Square from '../Square/Square';
 import Undo from '../Undo/Undo';
+import TurnIndicator from '../TurnIndicator/TurnIndicator';
 
 class App extends Component {
 	render() {
@@ -27,6 +28,7 @@ class App extends Component {
 				</div>
 				<div className="status">
 					<Undo/>
+					<TurnIndicator finished player="x"/>
 				</div>
 			</>
 		);

@@ -1,1 +1,4 @@
-.turn-indicator {}
+.turn-indicator {
+	font-size: 22px;
+	color: var(--white);
+}

@@ -39,4 +39,9 @@ export default class Game {
 		this.historyCursor = 0;
 		this.board = this.emptyBoard;
 	}
+
+	undo() {
+		this.historyCursor--;
+		this.board = this.history[this.historyCursor];
+	}
 }

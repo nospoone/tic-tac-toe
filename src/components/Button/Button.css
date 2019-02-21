@@ -1,5 +1,4 @@
 .button {
-	background: var(--orange);
 	font-size: 22px;
 	color: var(--white);
 	padding: 10px 15px;
@@ -18,4 +17,12 @@
 	position: relative;
 	font-size: 14px;
 	margin-right: 10px;
+}
+
+.button--red {
+	background: var(--red);
+}
+
+.button--orange {
+	background: var(--orange);
 }

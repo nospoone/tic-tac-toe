@@ -9,6 +9,7 @@ export default class Button extends Component {
 			<span
 				className={className({
 					button: true,
+					[`button--${this.props.color}`]: true,
 					'button--disabled': this.props.disabled
 				})}
 			>
@@ -19,8 +20,9 @@ export default class Button extends Component {
 }
 
 Button.propTypes = {
-	disabled: PropTypes.bool,
-	children: PropTypes.string.isRequired
+	children: PropTypes.string.isRequired,
+	color: PropTypes.oneOf(['orange', 'red']).isRequired,
+	disabled: PropTypes.bool
 };
 
 Button.defaultProps = {

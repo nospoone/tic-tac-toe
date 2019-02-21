@@ -28,8 +28,8 @@ class App extends Component {
 				</div>
 				<div className="status">
 					<div className="button-container">
-						<Button>Undo</Button>
-						<Button>Reset</Button>
+						<Button color="orange">Undo</Button>
+						<Button color="red">Reset</Button>
 					</div>
 					<TurnIndicator finished player="x"/>
 				</div>

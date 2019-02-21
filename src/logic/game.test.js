@@ -22,6 +22,40 @@ describe('Game', () => {
 				game.storeMove('o', 13, 21);
 			}).toThrow('Move position out of bounds.');
 		});
+		it('should find all winning possiblities', () => {
+			const boards = [
+				[['x', 'x', 'x'], [null, null, null], [null, null, null]],
+				[[null, null, null], ['x', 'x', 'x'], [null, null, null]],
+				[[null, null, null], [null, null, null], ['x', 'x', 'x']],
+				[['x', null, null], ['x', null, null], ['x', null, null]],
+				[[null, 'x', null], [null, 'x', null], [null, 'x', null]],
+				[[null, null, 'x'], [null, null, 'x'], [null, null, 'x']],
+				[['x', null, null], [null, 'x', null], [null, null, 'x']],
+				[[null, null, 'x'], [null, 'x', null], ['x', null, null]],
+				[['o', 'o', 'o'], [null, null, null], [null, null, null]],
+				[[null, null, null], ['o', 'o', 'o'], [null, null, null]],
+				[[null, null, null], [null, null, null], ['o', 'o', 'o']],
+				[['o', null, null], ['o', null, null], ['o', null, null]],
+				[[null, 'o', null], [null, 'o', null], [null, 'o', null]],
+				[[null, null, 'o'], [null, null, 'o'], [null, null, 'o']],
+				[['o', null, null], [null, 'o', null], [null, null, 'o']],
+				[[null, null, 'o'], [null, 'o', null], ['o', null, null]]
+			];
+
+			boards.forEach(board => {
+				expect(game.solve(board)).toBe(true);
+			});
+		});
+		it('should find draws', () => {
+			const boards = [
+				[['x', 'o', 'x'], ['o', 'x', 'o'], ['o', 'o', 'x']],
+				[['o', 'x', 'o'], ['x', 'o', 'x'], ['x', 'o', 'x']]
+			];
+
+			boards.forEach(board => {
+				expect(game.solve(board)).toBe(false);
+			});
+		});
 	});
 
 	describe('Serialization & History', () => {

@@ -6,6 +6,7 @@ export default class Game {
 			[null, null, null]
 		];
 
+		this.boardHistoryKey = 'naughts-and-crosses__history';
 		this.board = this.emptyBoard;
 	}
 
@@ -19,5 +20,11 @@ export default class Game {
 		}
 
 		this.board[y][x] = player;
+	}
+
+	serialize() {
+		const serializedBoard = JSON.stringify(this.board);
+		localStorage.setItem(this.boardHistoryKey, serializedBoard);
+		return serializedBoard;
 	}
 }

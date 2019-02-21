@@ -24,38 +24,20 @@ describe('Game', () => {
 		});
 	});
 
-	describe('Serialization', () => {
-		const board = [
-			['x', null, 'o'],
-			[null, 'x', 'o'],
-			[null, null, 'x']
+	describe('Serialization & History', () => {
+		const history = [
+			JSON.stringify([[null, null, null], [null, null, null], [null, null, null]]),
+			JSON.stringify([[null, null, null], [null, null, null], [null, null, 'x']]),
+			JSON.stringify([[null, null, null], [null, null, null], [null, null, 'x']]),
+			JSON.stringify([['x', null, null], [null, 'x', null], [null, null, 'x']]),
+			JSON.stringify([['x', null, null], ['x', 'x', null], [null, null, 'x']]),
+			JSON.stringify([['x', null, null], ['x', 'x', null], ['x', null, 'x']]),
+			JSON.stringify([['x', null, null], ['x', 'x', null], ['x', 'x', 'x']]),
+			JSON.stringify([['x', 'x', null], ['x', 'x', null], ['x', 'x', 'x']]),
+			JSON.stringify([['x', 'x', 'x'], ['x', 'x', null], ['x', 'x', 'x']]),
+			JSON.stringify([['x', 'x', 'x'], ['x', 'x', 'x'], ['x', 'x', 'x']])
 		];
-		const serializedBoard = JSON.stringify(board);
-
-		beforeEach(() => {
-			game.board = board;
-		});
-
-		it('should correctly serialize the board state', () => {
-			const serializedBoard = game.serialize();
-			expect(serializedBoard).toBe(serializedBoard);
-		});
-		it('should correctly serialize the board state to localStorage', () => {
-			game.serialize();
-			expect(localStorage.__STORE__[game.boardHistoryKey]).toBe(serializedBoard);
-		});
-		it('should correctly deserialize the board state from localStorage', () => {
-			game.deserialize();
-			expect(game.board).toEqual(board);
-		});
-	});
-
-	describe('History', () => {
-		const board = [
-			['x', 'o', 'o'],
-			['o', 'x', 'o'],
-			[null, 'x', 'x']
-		];
+		const serializedHistory = JSON.stringify(history);
 		const emptyBoard = [
 			[null, null, null],
 			[null, null, null],
@@ -63,11 +45,40 @@ describe('Game', () => {
 		];
 
 		beforeEach(() => {
-			game.board = board;
+			game.history = history;
+			game.historyCursor = history.length - 1;
+			game.board = history[history.length - 1];
+		});
+
+		it('should correctly serialize the board history', () => {
+			const serializedHistoryFromGame = game.serialize();
+			expect(serializedHistoryFromGame).toEqual(serializedHistory);
+		});
+		it('should correctly serialize the board history to localStorage', () => {
+			game.serialize();
+			expect(localStorage.__STORE__[game.boardHistoryKey]).toEqual(serializedHistory);
+		});
+		it('should correctly deserialize the board history from localStorage', () => {
+			game.deserialize();
+			expect(game.history).toEqual(history);
+			expect(game.board).toEqual(history[history.length - 1]);
 		});
 
 		it('should correctly reset the board state', () => {
 			game.reset();
+			expect(game.board).toEqual(emptyBoard);
+			expect(game.history).toEqual([]);
+			expect(game.historyCursor).toBe(0);
+		});
+
+		it('should correctly undo the board state to the beginning', () => {
+			game.history = history;
+			game.historyCursor = history.length - 1;
+
+			for (let i = 0; i < history.length; i++) {
+				game.undo();
+			}
+
 			expect(game.board).toEqual(emptyBoard);
 		});
 	});

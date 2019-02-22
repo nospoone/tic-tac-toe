@@ -97,20 +97,24 @@ describe('Game', () => {
 			expect(game.history).toEqual(history);
 			expect(game.board).toEqual(history[history.length - 1]);
 		});
-
 		it('should correctly reset the board state', () => {
 			game.reset();
 			expect(game.board).toEqual(emptyBoard);
 			expect(game.history).toEqual([emptyBoard]);
 			expect(game.historyCursor).toBe(0);
 		});
-
 		it('should correctly undo the board state to the beginning', () => {
 			for (let i = 0; i < history.length - 1; i++) {
 				game.undo();
 			}
 
 			expect(game.board).toEqual(emptyBoard);
+		});
+		it('should correctly set the historyPointer when `storeMove` is called', () => {
+			game.storeMove('x', 0, 0);
+			expect(game.historyCursor).toBe(1);
+			game.storeMove('o', 0, 1);
+			expect(game.historyCursor).toBe(2);
 		});
 	});
 });

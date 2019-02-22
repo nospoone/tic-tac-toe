@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import {shallow} from 'enzyme';
+import {shallow, mount} from 'enzyme';
 
 import App from './App';
 import Title from '../Title/Title';
@@ -53,7 +53,7 @@ describe('App', () => {
 		expect(wrapper.state('player')).toBe('x');
 	});
 	it('should correctly set the board state when clicking a <Square/>', () => {
-		const wrapper = shallow(<App/>);
+		const wrapper = mount(<App/>);
 		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');
 		expect(wrapper.instance().game.historyCursor).toBe(1);
 		expect(wrapper.instance().game.board).toEqual([['x', null, null], [null, null, null], [null, null, null]]);

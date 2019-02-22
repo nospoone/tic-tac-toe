@@ -1,10 +1,5 @@
 export default class Game {
 	constructor() {
-		this.emptyBoard = [
-			[null, null, null],
-			[null, null, null],
-			[null, null, null]
-		];
 		this.boardHistoryKey = 'naughts-and-crosses__history';
 		this.reset();
 	}
@@ -19,7 +14,7 @@ export default class Game {
 		}
 
 		this.board[y][x] = player;
-		this.history.push(this.board);
+		this.history.push(JSON.parse(JSON.stringify(this.board)));
 		this.historyCursor++;
 		this.serialize();
 	}
@@ -42,15 +37,23 @@ export default class Game {
 	}
 
 	reset() {
-		this.history = [this.emptyBoard];
+		this.board = [
+			[null, null, null],
+			[null, null, null],
+			[null, null, null]
+		];
+		this.history = [[
+			[null, null, null],
+			[null, null, null],
+			[null, null, null]
+		]];
 		this.historyCursor = 0;
-		this.board = this.emptyBoard;
 		localStorage.removeItem(this.boardHistoryKey);
 	}
 
 	undo() {
 		this.historyCursor--;
-		this.board = this.history[this.historyCursor];
+		this.board = JSON.parse(JSON.stringify(this.history[this.historyCursor]));
 		this.history.splice(-1, 1);
 	}
 

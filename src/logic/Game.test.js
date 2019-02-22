@@ -103,7 +103,7 @@ describe('Game', () => {
 			expect(game.board).toEqual(emptyBoard);
 			expect(game.history).toEqual([emptyBoard]);
 			expect(game.historyCursor).toBe(0);
-			expect(localStorage.__STORE__[game.boardHistoryKey]).toBeNull();
+			expect(localStorage.__STORE__[game.boardHistoryKey]).toBeUndefined();
 		});
 		it('should correctly undo the board state to the beginning', () => {
 			for (let i = 0; i < history.length - 1; i++) {

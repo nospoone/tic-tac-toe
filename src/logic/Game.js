@@ -40,6 +40,7 @@ export default class Game {
 		this.history = [this.emptyBoard];
 		this.historyCursor = 0;
 		this.board = this.emptyBoard;
+		localStorage.removeItem(this.boardHistoryKey);
 	}
 
 	undo() {

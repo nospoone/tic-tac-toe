@@ -18,7 +18,6 @@ class App extends Component {
 	}
 
 	handleSquareClick(x, y) {
-		console.log(this.state.player, x, y);
 		this.game.storeMove(this.state.player, x, y);
 	}
 

@@ -140,8 +140,8 @@ describe('Game', () => {
 		it('should correctly serialize the history when multiple `storeMove`s are called', () => {
 			game.reset();
 			game.storeMove('x', 0, 0);
-			game.storeMove('o', 0, 1);
-			game.storeMove('x', 0, 2);
+			game.storeMove('o', 1, 0);
+			game.storeMove('x', 2, 0);
 			const expectedSerializedHistory = JSON.stringify({
 				history: [
 					[[null, null, null], [null, null, null], [null, null, null]],

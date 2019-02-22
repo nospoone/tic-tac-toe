@@ -82,6 +82,7 @@ describe('Game', () => {
 			game.history = history;
 			game.historyCursor = history.length - 1;
 			game.board = history[history.length - 1];
+			game.serialize();
 		});
 
 		it('should correctly serialize the board history', () => {

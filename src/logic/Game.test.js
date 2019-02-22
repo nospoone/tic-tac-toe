@@ -71,12 +71,15 @@ describe('Game', () => {
 			[['x', 'x', 'x'], ['x', 'x', null], ['x', 'x', 'x']],
 			[['x', 'x', 'x'], ['x', 'x', 'x'], ['x', 'x', 'x']]
 		];
-		const serializedHistory = JSON.stringify(history);
+		const emptyHistory = [
+			[[null, null, null], [null, null, null], [null, null, null]]
+		];
 		const emptyBoard = [
 			[null, null, null],
 			[null, null, null],
 			[null, null, null]
 		];
+		const serializedHistory = JSON.stringify({history, historyCursor: history.length - 1});
 
 		beforeEach(() => {
 			game.history = history;
@@ -95,8 +98,9 @@ describe('Game', () => {
 		});
 		it('should correctly deserialize the board history from localStorage', () => {
 			game.deserialize();
-			expect(game.history).toEqual(history);
 			expect(game.board).toEqual(history[history.length - 1]);
+			expect(game.history).toEqual(history);
+			expect(game.historyCursor).toEqual(history.length - 1);
 		});
 		it('should correctly reset the board state', () => {
 			game.reset();
@@ -111,6 +115,8 @@ describe('Game', () => {
 			}
 
 			expect(game.board).toEqual(emptyBoard);
+			expect(game.history).toEqual(emptyHistory);
+			expect(game.historyCursor).toBe(0);
 		});
 		it('should correctly set the historyPointer when `storeMove` is called', () => {
 			game.reset();
@@ -123,6 +129,22 @@ describe('Game', () => {
 			game.reset();
 			game.storeMove('x', 0, 0);
 			const expectedSerializedHistory = JSON.stringify([[['x', null, null], [null, null, null], [null, null, null]]]);
+			expect(localStorage.__STORE__[game.boardHistoryKey]).toEqual(expectedSerializedHistory);
+		});
+		it('should correctly serialize the history when multiple `storeMove`s are called', () => {
+			game.reset();
+			game.storeMove('x', 0, 0);
+			game.storeMove('o', 0, 1);
+			game.storeMove('x', 0, 2);
+			const expectedSerializedHistory = JSON.stringify({
+				history: [
+					[[null, null, null], [null, null, null], [null, null, null]],
+					[['x', null, null], [null, null, null], [null, null, null]],
+					[['x', 'o', null], [null, null, null], [null, null, null]],
+					[['x', 'o', 'x'], [null, null, null], [null, null, null]]
+				],
+				historyCursor: 3
+			});
 			expect(localStorage.__STORE__[game.boardHistoryKey]).toEqual(expectedSerializedHistory);
 		});
 	});

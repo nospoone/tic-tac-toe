@@ -82,9 +82,9 @@ describe('Game', () => {
 		const serializedHistory = JSON.stringify({history, historyCursor: history.length - 1});
 
 		beforeEach(() => {
-			game.history = history;
+			game.board = [...history[history.length - 1]];
+			game.history = [...history];
 			game.historyCursor = history.length - 1;
-			game.board = history[history.length - 1];
 			game.serialize();
 		});
 

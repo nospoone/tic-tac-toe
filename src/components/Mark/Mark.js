@@ -7,7 +7,7 @@ export default class Mark extends Component {
 	render() {
 		const classes = className({
 			mark: true,
-			'mark--visible': this.props.mark !== undefined,
+			'mark--visible': this.props.mark !== null,
 			'mark--green': this.props.mark === 'o',
 			'mark--red': this.props.mark === 'x',
 			'mark--active': this.props.active
@@ -35,11 +35,11 @@ export default class Mark extends Component {
 }
 
 Mark.propTypes = {
-	mark: PropTypes.oneOf(['x', 'o', undefined]),
+	mark: PropTypes.oneOf(['x', 'o', null]),
 	active: PropTypes.bool
 };
 
 Mark.defaultProps = {
-	mark: undefined,
+	mark: null,
 	active: false
 };

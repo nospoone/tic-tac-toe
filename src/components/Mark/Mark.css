@@ -3,7 +3,7 @@
 	height: 100%;
 	transform: rotateX(45deg) rotateY(45deg);
 	opacity: 0;
-	transition: all 250ms ease-out;
+	transition: transform 250ms ease-out, opacity 250ms ease-out;
 }
 
 .mark--active {

@@ -5,27 +5,44 @@ import Title from '../Title/Title';
 import Square from '../Square/Square';
 import Button from '../Button/Button';
 import TurnIndicator from '../TurnIndicator/TurnIndicator';
+import Game from '../../logic/Game';
 
 class App extends Component {
+	constructor(props) {
+		super(props);
+		this.game = new Game();
+		this.state = {
+			player: 'x'
+		};
+		this.handleSquareClick = this.handleSquareClick.bind(this);
+	}
+
+	handleSquareClick(x, y) {
+		console.log(this.state.player, x, y);
+		this.game.storeMove(this.state.player, x, y);
+	}
+
 	render() {
 		return (
 			<>
 				<Title/>
-				<div className="row">
-					<Square pulse mark="x"/>
-					<Square mark="o"/>
-					<Square/>
-				</div>
-				<div className="row">
-					<Square mark="o"/>
-					<Square pulse mark="x"/>
-					<Square mark="x"/>
-				</div>
-				<div className="row">
-					<Square mark="x"/>
-					<Square mark="o"/>
-					<Square pulse mark="x"/>
-				</div>
+				{[0, 1, 2].map(y => {
+					return (
+						<div key={y} className="row" data-row={y}>
+							{[0, 1, 2].map(x => {
+								return (
+									<Square
+										key={`${x}:${y}`}
+										x={x}
+										y={y}
+										mark={this.game.board[y][x]}
+										onClick={this.handleSquareClick}
+									/>
+								);
+							})}
+						</div>
+					);
+				})}
 				<div className="status">
 					<div className="button-container">
 						<Button color="orange">Undo</Button>

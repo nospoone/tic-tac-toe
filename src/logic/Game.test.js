@@ -120,7 +120,7 @@ describe('Game', () => {
 		it('should correctly serialize the history when `storeMove` is called', () => {
 			game.reset();
 			game.storeMove('x', 0, 0);
-			const expectedSerializedHistory = JSON.stringify([['x', null, null], [null, null, null], [null, null, null]]);
+			const expectedSerializedHistory = JSON.stringify([[['x', null, null], [null, null, null], [null, null, null]]]);
 			expect(localStorage.__STORE__[game.boardHistoryKey]).toEqual(expectedSerializedHistory);
 		});
 	});

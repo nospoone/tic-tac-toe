@@ -6,6 +6,7 @@ import Title from '../Title/Title';
 import Square from '../Square/Square';
 import Button from '../Button/Button';
 import TurnIndicator from '../TurnIndicator/TurnIndicator';
+import Game from '../../logic/Game';
 
 describe('App', () => {
 	it('should render a <Fragment /> as its root', () => {
@@ -42,5 +43,19 @@ describe('App', () => {
 	it('should render a <TurnIndicator/> component inside a <div/> with the `status` class', () => {
 		const wrapper = shallow(<App/>);
 		expect(wrapper.find('div.status').find(TurnIndicator).length).toBe(1);
+	});
+	it('should contain a game member', () => {
+		const wrapper = shallow(<App/>);
+		expect(wrapper.instance().game).toBeInstanceOf(Game);
+	});
+	it('should start with the X player as the active player', () => {
+		const wrapper = shallow(<App/>);
+		expect(wrapper.state('player')).toBe('x');
+	});
+	it('should correctly set the board state when clicking a <Square/>', () => {
+		const wrapper = shallow(<App/>);
+		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');
+		expect(wrapper.instance().game.historyCursor).toBe(1);
+		expect(wrapper.instance().game.board).toEqual([['x', null, null], [null, null, null], [null, null, null]]);
 	});
 });

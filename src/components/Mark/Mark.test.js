@@ -19,4 +19,12 @@ describe('Mark', () => {
 		const wrapper = shallow(<Mark active mark="x"/>);
 		expect(wrapper.find('svg').hasClass('mark--active')).toBe(true);
 	});
+	it('should render an <svg /> with the `mark--visible` if the `mark` prop is not `null`', () => {
+		const wrapper = shallow(<Mark mark="x"/>);
+		expect(wrapper.find('svg').hasClass('mark--visible')).toBe(true);
+	});
+	it('should render an <svg /> without `mark--visible` if the `mark` prop is `null`', () => {
+		const wrapper = shallow(<Mark mark={null}/>);
+		expect(wrapper.find('svg').hasClass('mark--visible')).toBe(false);
+	});
 });

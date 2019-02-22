@@ -9,6 +9,10 @@ describe('Square', () => {
 		const wrapper = shallow(<Square x={0} y={0} onClick={() => {}}/>);
 		expect(wrapper.find('div').length).toEqual(1);
 	});
+	it('should render a <div /> with the `square` class', () => {
+		const wrapper = shallow(<Square x={0} y={0} onClick={() => {}}/>);
+		expect(wrapper.find('div.square').length).toEqual(1);
+	});
 	it('should render a <div /> with the `square--pulse` class when the `pulse` prop is set', () => {
 		const wrapper = shallow(<Square pulse x={0} y={0} onClick={() => {}}/>);
 		expect(wrapper.find('div.square--pulse').length).toEqual(1);
@@ -16,6 +20,10 @@ describe('Square', () => {
 	it('should render a <div /> with the `square--disabled` when the `mark` prop is set', () => {
 		const wrapper = shallow(<Square x={0} y={0} mark="x" onClick={() => {}}/>);
 		expect(wrapper.find('div.square--disabled').length).toEqual(1);
+	});
+	it('should render a <div /> without the `square--disabled` when the `mark` prop is set to null', () => {
+		const wrapper = shallow(<Square x={0} y={0} mark={null} onClick={() => {}}/>);
+		expect(wrapper.find('div.square--disabled').length).toBe(0);
 	});
 	it('should render a <Mark /> with its `mark` prop set to `x` when the `mark` prop is `x`', () => {
 		const wrapper = shallow(<Square x={0} y={0} mark="x" onClick={() => {}}/>);
@@ -29,17 +37,17 @@ describe('Square', () => {
 		expect(wrapper.find(Mark).prop('mark')).toEqual('o');
 		expect(wrapper.find(Mark).prop('active')).toEqual(true);
 	});
-	it('should render a <Mark /> with its `active` prop set to `true` when the `mark` prop is not `undefined`', () => {
+	it('should render a <Mark /> with its `active` prop set to `true` when the `mark` prop is not `null`', () => {
 		const wrapper = shallow(<Square x={0} y={0} mark="o" onClick={() => {}}/>);
 		expect(wrapper.find(Mark).length).toEqual(1);
 		expect(wrapper.find(Mark).prop('mark')).toEqual('o');
 		expect(wrapper.find(Mark).prop('active')).toEqual(true);
 	});
-	it('should render a <Mark /> when the `mark` prop is `undefined`', () => {
-		const wrapper = shallow(<Square x={0} y={0} onClick={() => {}}/>);
+	it('should render a <Mark /> when the `mark` prop is `null`', () => {
+		const wrapper = shallow(<Square x={0} y={0} mark={null} onClick={() => {}}/>);
 		expect(wrapper.find(Mark).length).toEqual(1);
 		expect(wrapper.find(Mark).prop('active')).toEqual(false);
-		expect(wrapper.find(Mark).prop('mark')).toEqual(undefined);
+		expect(wrapper.find(Mark).prop('mark')).toBeNull();
 	});
 	it('should log a warning when the `x` prop is invalid', () => {
 		const spy = jest.spyOn(global.console, 'error').mockImplementation(() => {});

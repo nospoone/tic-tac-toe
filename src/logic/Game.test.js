@@ -133,7 +133,7 @@ describe('Game', () => {
 					[[null, null, null], [null, null, null], [null, null, null]],
 					[['x', null, null], [null, null, null], [null, null, null]]
 				],
-				historyCursor: 3
+				historyCursor: 1
 			});
 			expect(localStorage.__STORE__[game.boardHistoryKey]).toEqual(expectedSerializedHistory);
 		});

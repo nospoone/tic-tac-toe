@@ -17,16 +17,15 @@ describe('Button', () => {
 		expect(spy.mock.calls[0][0]).toContain('Invalid prop `children` of type `object` supplied to `Button`');
 		spy.mockClear();
 	});
-	it('should log a warning if the `color` prop is missing', () => {
+	it.skip('should log a warning if the `color` prop is missing', () => {
 		// This test isn't passing, and I'm not sure why - rendering the component normally (react-dom) triggers the warning,
 		// but enzyme doesn't. I've spent an hour trying to figure it out, but couldn't. The invalidity test covers this,
 		// but I'd rather have tested this too.
-		// ---
-		// const spy = jest.spyOn(global.console, 'error').mockImplementation(() => { });
-		// shallow(<Button>Undo</Button>);
-		// expect(spy).toHaveBeenCalled();
-		// expect(spy.mock.calls[0][0]).toContain('The prop `color` is marked as required in `Button`, but its value is `undefined`');
-		// spy.mockClear();
+		const spy = jest.spyOn(global.console, 'error').mockImplementation(() => { });
+		shallow(<Button>Undo</Button>);
+		expect(spy).toHaveBeenCalled();
+		expect(spy.mock.calls[0][0]).toContain('The prop `color` is marked as required in `Button`, but its value is `undefined`');
+		spy.mockClear();
 	});
 	it('should log a warning if the `color` prop is invalid', () => {
 		const spy = jest.spyOn(global.console, 'error').mockImplementation(() => { });

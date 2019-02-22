@@ -117,5 +117,11 @@ describe('Game', () => {
 			game.storeMove('o', 0, 1);
 			expect(game.historyCursor).toBe(2);
 		});
+		it('should correctly serialize the history when `storeMove` is called', () => {
+			game.reset();
+			game.storeMove('x', 0, 0);
+			const expectedSerializedHistory = JSON.stringify([['x', null, null], [null, null, null], [null, null, null]]);
+			expect(localStorage.__STORE__[game.boardHistoryKey]).toEqual(expectedSerializedHistory);
+		});
 	});
 });

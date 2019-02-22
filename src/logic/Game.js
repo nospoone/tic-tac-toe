@@ -19,20 +19,25 @@ export default class Game {
 		}
 
 		this.board[y][x] = player;
-		this.serialize();
+		this.history.push(this.board);
 		this.historyCursor++;
+		this.serialize();
 	}
 
 	serialize() {
-		const serializedHistory = JSON.stringify(this.history);
+		const serializedHistory = JSON.stringify({
+			history: this.history,
+			historyCursor: this.historyCursor
+		});
 		localStorage.setItem(this.boardHistoryKey, serializedHistory);
 		return serializedHistory;
 	}
 
 	deserialize() {
 		const deserializedHistory = JSON.parse(localStorage.getItem(this.boardHistoryKey));
-		this.history = deserializedHistory;
-		this.board = deserializedHistory[deserializedHistory.length - 1];
+		this.board = deserializedHistory.history[deserializedHistory.history.length - 1];
+		this.history = deserializedHistory.history;
+		this.historyCursor = deserializedHistory.historyCursor;
 		return deserializedHistory;
 	}
 
@@ -46,6 +51,7 @@ export default class Game {
 	undo() {
 		this.historyCursor--;
 		this.board = this.history[this.historyCursor];
+		this.history.splice(-1, 1);
 	}
 
 	solve(board, x, y) {

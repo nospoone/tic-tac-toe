@@ -111,6 +111,7 @@ describe('Game', () => {
 			expect(game.board).toEqual(emptyBoard);
 		});
 		it('should correctly set the historyPointer when `storeMove` is called', () => {
+			game.reset();
 			game.storeMove('x', 0, 0);
 			expect(game.historyCursor).toBe(1);
 			game.storeMove('o', 0, 1);

@@ -19,6 +19,7 @@ export default class Game {
 		}
 
 		this.board[y][x] = player;
+		this.historyCursor++;
 	}
 
 	serialize() {

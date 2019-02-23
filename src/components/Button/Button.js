@@ -12,6 +12,7 @@ export default class Button extends Component {
 					[`button--${this.props.color}`]: true,
 					'button--disabled': this.props.disabled
 				})}
+				onClick={this.props.onClick}
 			>
 				{this.props.children}
 			</span>
@@ -22,9 +23,11 @@ export default class Button extends Component {
 Button.propTypes = {
 	children: PropTypes.string.isRequired,
 	color: PropTypes.oneOf(['orange', 'red']).isRequired,
+	onClick: PropTypes.func,
 	disabled: PropTypes.bool
 };
 
 Button.defaultProps = {
-	disabled: false
+	disabled: false,
+	onClick: undefined
 };

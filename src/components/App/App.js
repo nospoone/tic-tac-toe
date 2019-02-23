@@ -12,9 +12,12 @@ class App extends Component {
 		super(props);
 		this.game = new Game();
 		this.state = {
-			player: 'x'
+			player: 'x',
+			board: JSON.parse(JSON.stringify(this.game.board))
 		};
 		this.handleSquareClick = this.handleSquareClick.bind(this);
+		this.handleUndoClick = this.handleUndoClick.bind(this);
+		this.handleResetClick = this.handleResetClick.bind(this);
 	}
 
 	handleSquareClick(x, y) {
@@ -22,8 +25,31 @@ class App extends Component {
 			this.game.storeMove(this.state.player, x, y);
 			this.setState(prevState => {
 				return {
-					player: prevState.player === 'x' ? 'o' : 'x'
+					player: prevState.player === 'x' ? 'o' : 'x',
+					board: JSON.parse(JSON.stringify(this.game.board))
 				};
+			});
+		}
+	}
+
+	handleUndoClick() {
+		if (this.game.historyCursor > 0) {
+			this.game.undo();
+			this.setState(prevState => {
+				return {
+					player: prevState.player === 'x' ? 'o' : 'x',
+					board: JSON.parse(JSON.stringify(this.game.board))
+				};
+			});
+		}
+	}
+
+	handleResetClick() {
+		if (this.game.historyCursor > 0) {
+			this.game.reset();
+			this.setState({
+				player: 'x',
+				board: JSON.parse(JSON.stringify(this.game.board))
 			});
 		}
 	}
@@ -41,7 +67,7 @@ class App extends Component {
 										key={`${x}:${y}`}
 										x={x}
 										y={y}
-										mark={this.game.board[y][x]}
+										mark={this.state.board[y][x]}
 										onClick={this.handleSquareClick}
 									/>
 								);
@@ -51,8 +77,8 @@ class App extends Component {
 				})}
 				<div className="status">
 					<div className="button-container">
-						<Button disabled={this.game.historyCursor === 0} color="orange">Undo</Button>
-						<Button disabled={this.game.historyCursor === 0} color="red">Reset</Button>
+						<Button disabled={this.game.historyCursor === 0} color="orange" onClick={this.handleUndoClick}>Undo</Button>
+						<Button disabled={this.game.historyCursor === 0} color="red" onClick={this.handleResetClick}>Reset</Button>
 					</div>
 					<TurnIndicator finished player="x"/>
 				</div>

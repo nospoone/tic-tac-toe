@@ -134,9 +134,10 @@ describe('App', () => {
 			wrapper.find('div.button-container').childAt(0).simulate('click');
 		}
 
+		wrapper.update();
 		expect(wrapper.state('player')).toBe('x');
-		expect(wrapper.instance().game.board).toBe([[null, null, null], [null, null, null], [null, null, null]]);
-		expect(wrapper.instance().game.history).toBe([[[null, null, null], [null, null, null], [null, null, null]]]);
+		expect(wrapper.instance().game.board).toEqual([[null, null, null], [null, null, null], [null, null, null]]);
+		expect(wrapper.instance().game.history).toEqual([[[null, null, null], [null, null, null], [null, null, null]]]);
 		expect(wrapper.instance().game.historyCursor).toBe(0);
 	});
 	it('should rewind to the start of the game using the reset <Button/> when there are previous moves', () => {
@@ -151,9 +152,10 @@ describe('App', () => {
 
 		wrapper.find('div.button-container').childAt(1).simulate('click');
 
+		wrapper.update();
 		expect(wrapper.state('player')).toBe('x');
-		expect(wrapper.instance().game.board).toBe([[null, null, null], [null, null, null], [null, null, null]]);
-		expect(wrapper.instance().game.history).toBe([[[null, null, null], [null, null, null], [null, null, null]]]);
+		expect(wrapper.instance().game.board).toEqual([[null, null, null], [null, null, null], [null, null, null]]);
+		expect(wrapper.instance().game.history).toEqual([[[null, null, null], [null, null, null], [null, null, null]]]);
 		expect(wrapper.instance().game.historyCursor).toBe(0);
 	});
 });

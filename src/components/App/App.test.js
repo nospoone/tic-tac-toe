@@ -48,6 +48,11 @@ describe('App', () => {
 		const wrapper = shallow(<App/>);
 		expect(wrapper.instance().game).toBeInstanceOf(Game);
 	});
+	it('should store a move when calling handleSquareClick', () => {
+		const wrapper = shallow(<App/>);
+		wrapper.instance().handleSquareClick(0, 0);
+		expect(wrapper.instance().game.board).toEqual([['x', null, null], [null, null, null], [null, null, null]]);
+	});
 	it('should start with the X player as the active player', () => {
 		const wrapper = shallow(<App/>);
 		expect(wrapper.state('player')).toBe('x');

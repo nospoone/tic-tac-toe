@@ -19,7 +19,7 @@ describe('Button', () => {
 	});
 	it.skip('should log a warning if the `color` prop is missing', () => {
 		// This test isn't passing, and I'm not sure why - rendering the component normally (react-dom) triggers the warning,
-		// but enzyme doesn't. I've spent an hour trying to figure it out, but couldn't. The invalidity test covers this,
+		// but enzyme (shallow & mount) doesn't. I've spent an hour trying to figure it out, but couldn't. The invalidity test covers this,
 		// but I'd rather have tested this too.
 		const spy = jest.spyOn(global.console, 'error').mockImplementation(() => { });
 		shallow(<Button>Undo</Button>);

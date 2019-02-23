@@ -53,12 +53,11 @@ describe('App', () => {
 		wrapper.instance().handleSquareClick(0, 0);
 		expect(wrapper.instance().game.board).toEqual([['x', null, null], [null, null, null], [null, null, null]]);
 	});
-	it('should not call `handleSquareClick` when clicking an already clicked <Square/>', () => {
-		const spy = jest.spyOn(App.prototype, 'handleSquareClick');
+	it('should not set the <Square/>\'s mark to `o` when clicking it a second time', () => {
 		const wrapper = mount(<App/>);
 		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');
 		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');
-		expect(spy).toHaveBeenCalledTimes(1);
+		expect(wrapper.instance().game.board).toEqual([['x', null, null], [null, null, null], [null, null, null]]);
 	});
 	it('should start with the X player as the active player', () => {
 		const wrapper = shallow(<App/>);

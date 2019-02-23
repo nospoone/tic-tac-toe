@@ -80,7 +80,7 @@ class App extends Component {
 						<Button disabled={this.game.historyCursor === 0} color="orange" onClick={this.handleUndoClick}>Undo</Button>
 						<Button disabled={this.game.historyCursor === 0} color="red" onClick={this.handleResetClick}>Reset</Button>
 					</div>
-					<TurnIndicator finished player="x"/>
+					<TurnIndicator/>
 				</div>
 			</>
 		);

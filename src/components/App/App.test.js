@@ -158,4 +158,32 @@ describe('App', () => {
 		expect(wrapper.instance().game.history).toEqual([[[null, null, null], [null, null, null], [null, null, null]]]);
 		expect(wrapper.instance().game.historyCursor).toBe(0);
 	});
+	it('should disable the reset <Button/> when there are no previous moves', () => {
+		const wrapper = mount(<App/>);
+		expect(wrapper.find('div.button-container').childAt(1).prop('disabled')).toBe(true);
+	});
+	it('should set the `finished` prop on <TurnIndicator/> when the game is complete', () => {
+		const wrapper = mount(<App/>);
+		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');
+		wrapper.find('div.row[data-row=1]').childAt(0).simulate('click');
+		wrapper.find('div.row[data-row=0]').childAt(1).simulate('click');
+		wrapper.find('div.row[data-row=1]').childAt(1).simulate('click');
+		wrapper.find('div.row[data-row=0]').childAt(2).simulate('click');
+
+		expect(wrapper.find('div.status').find(TurnIndicator).prop('finished')).toBe(true);
+	});
+	it('should set the `player` prop on <TurnIndicator/> correctly', () => {
+		const wrapper = mount(<App/>);
+		expect(wrapper.find('div.status').find(TurnIndicator).prop('player')).toBe('x');
+		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');
+		expect(wrapper.find('div.status').find(TurnIndicator).prop('player')).toBe('o');
+		wrapper.find('div.row[data-row=1]').childAt(0).simulate('click');
+		expect(wrapper.find('div.status').find(TurnIndicator).prop('player')).toBe('x');
+		wrapper.find('div.row[data-row=0]').childAt(1).simulate('click');
+		expect(wrapper.find('div.status').find(TurnIndicator).prop('player')).toBe('o');
+		wrapper.find('div.row[data-row=1]').childAt(1).simulate('click');
+		expect(wrapper.find('div.status').find(TurnIndicator).prop('player')).toBe('x');
+		wrapper.find('div.row[data-row=0]').childAt(2).simulate('click');
+		expect(wrapper.find('div.status').find(TurnIndicator).prop('player')).toBe('o');
+	});
 });

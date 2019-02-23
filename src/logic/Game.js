@@ -17,6 +17,8 @@ export default class Game {
 		this.history.push(JSON.parse(JSON.stringify(this.board)));
 		this.historyCursor++;
 		this.serialize();
+
+		return this.solve(this.board, x, y);
 	}
 
 	serialize() {

@@ -13,7 +13,8 @@ class App extends Component {
 		this.game = new Game();
 		this.state = {
 			player: 'x',
-			board: JSON.parse(JSON.stringify(this.game.board))
+			board: JSON.parse(JSON.stringify(this.game.board)),
+			finished: false
 		};
 		this.handleSquareClick = this.handleSquareClick.bind(this);
 		this.handleUndoClick = this.handleUndoClick.bind(this);
@@ -22,11 +23,12 @@ class App extends Component {
 
 	handleSquareClick(x, y) {
 		if (this.game.board[y][x] === null) {
-			this.game.storeMove(this.state.player, x, y);
+			const finished = this.game.storeMove(this.state.player, x, y);
 			this.setState(prevState => {
 				return {
 					player: prevState.player === 'x' ? 'o' : 'x',
-					board: JSON.parse(JSON.stringify(this.game.board))
+					board: JSON.parse(JSON.stringify(this.game.board)),
+					finished
 				};
 			});
 		}
@@ -38,7 +40,8 @@ class App extends Component {
 			this.setState(prevState => {
 				return {
 					player: prevState.player === 'x' ? 'o' : 'x',
-					board: JSON.parse(JSON.stringify(this.game.board))
+					board: JSON.parse(JSON.stringify(this.game.board)),
+					finished: false
 				};
 			});
 		}
@@ -49,7 +52,8 @@ class App extends Component {
 			this.game.reset();
 			this.setState({
 				player: 'x',
-				board: JSON.parse(JSON.stringify(this.game.board))
+				board: JSON.parse(JSON.stringify(this.game.board)),
+				finished: false
 			});
 		}
 	}
@@ -80,7 +84,7 @@ class App extends Component {
 						<Button disabled={this.game.historyCursor === 0} color="orange" onClick={this.handleUndoClick}>Undo</Button>
 						<Button disabled={this.game.historyCursor === 0} color="red" onClick={this.handleResetClick}>Reset</Button>
 					</div>
-					<TurnIndicator/>
+					<TurnIndicator finished={this.state.finished !== false} player={this.state.finished === false ? this.state.player : this.state.finished}/>
 				</div>
 			</>
 		);

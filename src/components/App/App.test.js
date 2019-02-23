@@ -48,10 +48,17 @@ describe('App', () => {
 		const wrapper = shallow(<App/>);
 		expect(wrapper.instance().game).toBeInstanceOf(Game);
 	});
-	it('should store a move when calling handleSquareClick', () => {
+	it('should store a move when calling `handleSquareClick`', () => {
 		const wrapper = shallow(<App/>);
 		wrapper.instance().handleSquareClick(0, 0);
 		expect(wrapper.instance().game.board).toEqual([['x', null, null], [null, null, null], [null, null, null]]);
+	});
+	it('should not call `handleSquareClick` when clicking an already clicked <Square/>', () => {
+		const spy = jest.spyOn(App.prototype, 'handleSquareClick');
+		const wrapper = mount(<App/>);
+		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');
+		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');
+		expect(spy).toHaveBeenCalledTimes(1);
 	});
 	it('should start with the X player as the active player', () => {
 		const wrapper = shallow(<App/>);

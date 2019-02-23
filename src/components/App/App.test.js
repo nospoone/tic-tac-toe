@@ -113,11 +113,11 @@ describe('App', () => {
 	it('should enable the undo <Button/> when there are previous moves', () => {
 		const wrapper = mount(<App/>);
 		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');
-		expect(wrapper.find('div.button-container').childAt(0).prop('disabled')).toBe(true);
+		expect(wrapper.find('div.button-container').childAt(0).prop('disabled')).toBe(false);
 	});
 	it('should enable the reset <Button/> when there are previous moves', () => {
 		const wrapper = mount(<App/>);
 		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');
-		expect(wrapper.find('div.button-container').childAt(1).prop('disabled')).toBe(true);
+		expect(wrapper.find('div.button-container').childAt(1).prop('disabled')).toBe(false);
 	});
 });

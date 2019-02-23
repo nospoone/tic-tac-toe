@@ -22,7 +22,7 @@ class App extends Component {
 	}
 
 	handleSquareClick(x, y) {
-		if (this.game.board[y][x] === null || this.state.finished) {
+		if (this.game.board[y][x] === null && !this.state.finished) {
 			const finished = this.game.storeMove(this.state.player, x, y);
 			this.setState(prevState => {
 				return {

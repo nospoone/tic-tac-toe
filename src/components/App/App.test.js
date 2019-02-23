@@ -199,4 +199,17 @@ describe('App', () => {
 		wrapper.update();
 		expect(wrapper.find('div.status').find(TurnIndicator).prop('player')).toBe('x');
 	});
+	it('should set the `disabled` prop on all <Square/> components when the game is finished', () => {
+		const wrapper = mount(<App/>);
+		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');
+		wrapper.find('div.row[data-row=1]').childAt(0).simulate('click');
+		wrapper.find('div.row[data-row=0]').childAt(1).simulate('click');
+		wrapper.find('div.row[data-row=1]').childAt(1).simulate('click');
+		wrapper.find('div.row[data-row=0]').childAt(2).simulate('click');
+		wrapper.update();
+
+		wrapper.find(Square).forEach(squareWrapper => {
+			expect(squareWrapper.prop('disabled')).toBe(true);
+		});
+	});
 });

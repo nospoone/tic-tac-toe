@@ -72,6 +72,7 @@ class App extends Component {
 										x={x}
 										y={y}
 										mark={this.state.board[y][x]}
+										disabled={this.state.finished !== false}
 										onClick={this.handleSquareClick}
 									/>
 								);

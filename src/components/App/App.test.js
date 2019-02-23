@@ -209,4 +209,220 @@ describe('App', () => {
 			expect(squareWrapper.prop('disabled')).toBe(true);
 		});
 	});
+	it('should be able to play through a whole game', () => {
+		const wrapper = mount(<App/>);
+
+		expect(wrapper.state('player')).toBe('x');
+		expect(wrapper.state('finished')).toBe(false);
+		expect(wrapper.state('board')).toEqual([[null, null, null], [null, null, null], [null, null, null]]);
+		expect(wrapper.find('div.status').find(TurnIndicator).prop('player')).toBe('x');
+		expect(wrapper.instance().game.board).toEqual([[null, null, null], [null, null, null], [null, null, null]]);
+		expect(wrapper.instance().game.history).toEqual([
+			[[null, null, null], [null, null, null], [null, null, null]]
+		]);
+		expect(wrapper.instance().game.historyCursor).toBe(0);
+		expect(wrapper.find('div.button-container').childAt(0).prop('disabled')).toBe(true);
+		expect(wrapper.find('div.button-container').childAt(1).prop('disabled')).toBe(true);
+
+		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');
+		wrapper.update();
+
+		expect(wrapper.state('player')).toBe('o');
+		expect(wrapper.state('board')).toEqual([['x', null, null], [null, null, null], [null, null, null]]);
+		expect(wrapper.instance().game.board).toEqual([['x', null, null], [null, null, null], [null, null, null]]);
+		expect(wrapper.instance().game.history).toEqual([
+			[[null, null, null], [null, null, null], [null, null, null]],
+			[['x', null, null], [null, null, null], [null, null, null]]
+		]);
+		expect(wrapper.instance().game.historyCursor).toBe(1);
+		expect(wrapper.find('div.button-container').childAt(0).prop('disabled')).toBe(false);
+		expect(wrapper.find('div.button-container').childAt(1).prop('disabled')).toBe(false);
+
+		wrapper.find('div.row[data-row=0]').childAt(1).simulate('click');
+		wrapper.update();
+
+		expect(wrapper.state('player')).toBe('x');
+		expect(wrapper.state('board')).toEqual([['x', 'o', null], [null, null, null], [null, null, null]]);
+		expect(wrapper.instance().game.board).toEqual([['x', 'o', null], [null, null, null], [null, null, null]]);
+		expect(wrapper.instance().game.history).toEqual([
+			[[null, null, null], [null, null, null], [null, null, null]],
+			[['x', null, null], [null, null, null], [null, null, null]],
+			[['x', 'o', null], [null, null, null], [null, null, null]]
+		]);
+		expect(wrapper.instance().game.historyCursor).toBe(2);
+		expect(wrapper.find('div.button-container').childAt(0).prop('disabled')).toBe(false);
+		expect(wrapper.find('div.button-container').childAt(1).prop('disabled')).toBe(false);
+
+		wrapper.find('div.row[data-row=2]').childAt(2).simulate('click');
+		wrapper.update();
+
+		expect(wrapper.state('player')).toBe('o');
+		expect(wrapper.state('board')).toEqual([['x', 'o', null], [null, null, null], [null, null, 'x']]);
+		expect(wrapper.instance().game.board).toEqual([['x', 'o', null], [null, null, null], [null, null, 'x']]);
+		expect(wrapper.instance().game.history).toEqual([
+			[[null, null, null], [null, null, null], [null, null, null]],
+			[['x', null, null], [null, null, null], [null, null, null]],
+			[['x', 'o', null], [null, null, null], [null, null, null]],
+			[['x', 'o', null], [null, null, null], [null, null, 'x']]
+		]);
+		expect(wrapper.instance().game.historyCursor).toBe(3);
+		expect(wrapper.find('div.button-container').childAt(0).prop('disabled')).toBe(false);
+		expect(wrapper.find('div.button-container').childAt(1).prop('disabled')).toBe(false);
+
+		// Trigger Undo
+		wrapper.find('div.button-container').childAt(0).simulate('click');
+		wrapper.find('div.row[data-row=0]').childAt(2).simulate('click');
+		wrapper.update();
+
+		expect(wrapper.state('player')).toBe('o');
+		expect(wrapper.state('board')).toEqual([['x', 'o', 'x'], [null, null, null], [null, null, null]]);
+		expect(wrapper.instance().game.board).toEqual([['x', 'o', 'x'], [null, null, null], [null, null, null]]);
+		expect(wrapper.instance().game.history).toEqual([
+			[[null, null, null], [null, null, null], [null, null, null]],
+			[['x', null, null], [null, null, null], [null, null, null]],
+			[['x', 'o', null], [null, null, null], [null, null, null]],
+			[['x', 'o', 'x'], [null, null, null], [null, null, null]]
+		]);
+		expect(wrapper.instance().game.historyCursor).toBe(3);
+		expect(wrapper.find('div.button-container').childAt(0).prop('disabled')).toBe(false);
+		expect(wrapper.find('div.button-container').childAt(1).prop('disabled')).toBe(false);
+
+		wrapper.find('div.row[data-row=1]').childAt(0).simulate('click');
+		wrapper.update();
+
+		expect(wrapper.state('player')).toBe('x');
+		expect(wrapper.state('board')).toEqual([['x', 'o', 'x'], ['o', null, null], [null, null, null]]);
+		expect(wrapper.instance().game.board).toEqual([['x', 'o', 'x'], ['o', null, null], [null, null, null]]);
+		expect(wrapper.instance().game.history).toEqual([
+			[[null, null, null], [null, null, null], [null, null, null]],
+			[['x', null, null], [null, null, null], [null, null, null]],
+			[['x', 'o', null], [null, null, null], [null, null, null]],
+			[['x', 'o', 'x'], [null, null, null], [null, null, null]],
+			[['x', 'o', 'x'], ['o', null, null], [null, null, null]]
+		]);
+		expect(wrapper.instance().game.historyCursor).toBe(4);
+		expect(wrapper.find('div.button-container').childAt(0).prop('disabled')).toBe(false);
+		expect(wrapper.find('div.button-container').childAt(1).prop('disabled')).toBe(false);
+
+		wrapper.find('div.row[data-row=1]').childAt(1).simulate('click');
+		wrapper.update();
+
+		expect(wrapper.state('player')).toBe('o');
+		expect(wrapper.state('board')).toEqual([['x', 'o', 'x'], ['o', 'x', null], [null, null, null]]);
+		expect(wrapper.instance().game.board).toEqual([['x', 'o', 'x'], ['o', 'x', null], [null, null, null]]);
+		expect(wrapper.instance().game.history).toEqual([
+			[[null, null, null], [null, null, null], [null, null, null]],
+			[['x', null, null], [null, null, null], [null, null, null]],
+			[['x', 'o', null], [null, null, null], [null, null, null]],
+			[['x', 'o', 'x'], [null, null, null], [null, null, null]],
+			[['x', 'o', 'x'], ['o', null, null], [null, null, null]],
+			[['x', 'o', 'x'], ['o', 'x', null], [null, null, null]]
+		]);
+		expect(wrapper.instance().game.historyCursor).toBe(5);
+		expect(wrapper.find('div.button-container').childAt(0).prop('disabled')).toBe(false);
+		expect(wrapper.find('div.button-container').childAt(1).prop('disabled')).toBe(false);
+
+		wrapper.find('div.row[data-row=1]').childAt(2).simulate('click');
+		wrapper.update();
+
+		expect(wrapper.state('player')).toBe('x');
+		expect(wrapper.state('board')).toEqual([['x', 'o', 'x'], ['o', 'x', 'o'], [null, null, null]]);
+		expect(wrapper.instance().game.board).toEqual([['x', 'o', 'x'], ['o', 'x', 'o'], [null, null, null]]);
+		expect(wrapper.instance().game.history).toEqual([
+			[[null, null, null], [null, null, null], [null, null, null]],
+			[['x', null, null], [null, null, null], [null, null, null]],
+			[['x', 'o', null], [null, null, null], [null, null, null]],
+			[['x', 'o', 'x'], [null, null, null], [null, null, null]],
+			[['x', 'o', 'x'], ['o', null, null], [null, null, null]],
+			[['x', 'o', 'x'], ['o', 'x', null], [null, null, null]],
+			[['x', 'o', 'x'], ['o', 'x', 'o'], [null, null, null]]
+		]);
+		expect(wrapper.instance().game.historyCursor).toBe(6);
+		expect(wrapper.find('div.button-container').childAt(0).prop('disabled')).toBe(false);
+		expect(wrapper.find('div.button-container').childAt(1).prop('disabled')).toBe(false);
+
+		wrapper.find('div.row[data-row=2]').childAt(1).simulate('click');
+		wrapper.update();
+
+		expect(wrapper.state('player')).toBe('o');
+		expect(wrapper.state('board')).toEqual([['x', 'o', 'x'], ['o', 'x', 'o'], [null, 'x', null]]);
+		expect(wrapper.instance().game.board).toEqual([['x', 'o', 'x'], ['o', 'x', 'o'], [null, 'x', null]]);
+		expect(wrapper.instance().game.history).toEqual([
+			[[null, null, null], [null, null, null], [null, null, null]],
+			[['x', null, null], [null, null, null], [null, null, null]],
+			[['x', 'o', null], [null, null, null], [null, null, null]],
+			[['x', 'o', 'x'], [null, null, null], [null, null, null]],
+			[['x', 'o', 'x'], ['o', null, null], [null, null, null]],
+			[['x', 'o', 'x'], ['o', 'x', null], [null, null, null]],
+			[['x', 'o', 'x'], ['o', 'x', 'o'], [null, null, null]],
+			[['x', 'o', 'x'], ['o', 'x', 'o'], [null, 'x', null]]
+		]);
+		expect(wrapper.instance().game.historyCursor).toBe(7);
+		expect(wrapper.find('div.button-container').childAt(0).prop('disabled')).toBe(false);
+		expect(wrapper.find('div.button-container').childAt(1).prop('disabled')).toBe(false);
+
+		wrapper.find('div.row[data-row=2]').childAt(0).simulate('click');
+		wrapper.update();
+
+		expect(wrapper.state('player')).toBe('x');
+		expect(wrapper.state('board')).toEqual([['x', 'o', 'x'], ['o', 'x', 'o'], ['o', 'x', null]]);
+		expect(wrapper.instance().game.board).toEqual([['x', 'o', 'x'], ['o', 'x', 'o'], ['o', 'x', null]]);
+		expect(wrapper.instance().game.history).toEqual([
+			[[null, null, null], [null, null, null], [null, null, null]],
+			[['x', null, null], [null, null, null], [null, null, null]],
+			[['x', 'o', null], [null, null, null], [null, null, null]],
+			[['x', 'o', 'x'], [null, null, null], [null, null, null]],
+			[['x', 'o', 'x'], ['o', null, null], [null, null, null]],
+			[['x', 'o', 'x'], ['o', 'x', null], [null, null, null]],
+			[['x', 'o', 'x'], ['o', 'x', 'o'], [null, null, null]],
+			[['x', 'o', 'x'], ['o', 'x', 'o'], [null, 'x', null]],
+			[['x', 'o', 'x'], ['o', 'x', 'o'], ['o', 'x', null]]
+		]);
+		expect(wrapper.instance().game.historyCursor).toBe(8);
+		expect(wrapper.find('div.button-container').childAt(0).prop('disabled')).toBe(false);
+		expect(wrapper.find('div.button-container').childAt(1).prop('disabled')).toBe(false);
+
+		wrapper.find('div.row[data-row=2]').childAt(2).simulate('click');
+		wrapper.update();
+
+		expect(wrapper.state('player')).toBe('o');
+		expect(wrapper.state('board')).toEqual([['x', 'o', 'x'], ['o', 'x', 'o'], ['o', 'x', 'x']]);
+		expect(wrapper.instance().game.board).toEqual([['x', 'o', 'x'], ['o', 'x', 'o'], ['o', 'x', 'x']]);
+		expect(wrapper.instance().game.history).toEqual([
+			[[null, null, null], [null, null, null], [null, null, null]],
+			[['x', null, null], [null, null, null], [null, null, null]],
+			[['x', 'o', null], [null, null, null], [null, null, null]],
+			[['x', 'o', 'x'], [null, null, null], [null, null, null]],
+			[['x', 'o', 'x'], ['o', null, null], [null, null, null]],
+			[['x', 'o', 'x'], ['o', 'x', null], [null, null, null]],
+			[['x', 'o', 'x'], ['o', 'x', 'o'], [null, null, null]],
+			[['x', 'o', 'x'], ['o', 'x', 'o'], [null, 'x', null]],
+			[['x', 'o', 'x'], ['o', 'x', 'o'], ['o', 'x', null]],
+			[['x', 'o', 'x'], ['o', 'x', 'o'], ['o', 'x', 'x']]
+		]);
+		expect(wrapper.instance().game.historyCursor).toBe(9);
+		expect(wrapper.find('div.button-container').childAt(0).prop('disabled')).toBe(false);
+		expect(wrapper.find('div.button-container').childAt(1).prop('disabled')).toBe(false);
+		expect(wrapper.state('finished')).toBe('x');
+		expect(wrapper.find('div.status').find(TurnIndicator).prop('finished')).toBe(true);
+		expect(wrapper.find('div.status').find(TurnIndicator).prop('player')).toBe('x');
+		wrapper.find(Square).forEach(squareWrapper => {
+			expect(squareWrapper.prop('disabled')).toBe(true);
+		});
+
+		wrapper.find('div.button-container').childAt(1).simulate('click');
+		wrapper.update();
+
+		expect(wrapper.state('player')).toBe('x');
+		expect(wrapper.state('finished')).toBe(false);
+		expect(wrapper.state('board')).toEqual([[null, null, null], [null, null, null], [null, null, null]]);
+		expect(wrapper.find('div.status').find(TurnIndicator).prop('player')).toBe('x');
+		expect(wrapper.instance().game.board).toEqual([[null, null, null], [null, null, null], [null, null, null]]);
+		expect(wrapper.instance().game.history).toEqual([
+			[[null, null, null], [null, null, null], [null, null, null]]
+		]);
+		expect(wrapper.instance().game.historyCursor).toBe(0);
+		expect(wrapper.find('div.button-container').childAt(0).prop('disabled')).toBe(true);
+		expect(wrapper.find('div.button-container').childAt(1).prop('disabled')).toBe(true);
+	});
 });

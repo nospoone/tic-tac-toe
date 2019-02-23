@@ -10,6 +10,7 @@
 	--orange: #F39C12;
 	--font-advent: 'Advent Pro', sans-serif;
 	--font-archivo: 'Archivo Narrow', sans-serif;
+	--ease-out-quart: cubic-bezier(0.165, 0.840, 0.440, 1.000);
 }
 
 body {

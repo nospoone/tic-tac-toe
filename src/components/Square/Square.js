@@ -21,7 +21,7 @@ export default class Square extends Component {
 				className={className({
 					square: true,
 					'square--pulse': this.props.pulse,
-					'square--disabled': this.props.mark !== null
+					'square--disabled': this.props.mark !== null || this.props.disabled
 				})}
 				onClick={this.handleOnClick}
 			>
@@ -36,10 +36,12 @@ Square.propTypes = {
 	y: PropTypes.oneOf([0, 1, 2]).isRequired,
 	onClick: PropTypes.func.isRequired,
 	mark: PropTypes.oneOf(['x', 'o', null]),
-	pulse: PropTypes.bool
+	pulse: PropTypes.bool,
+	disabled: PropTypes.bool
 };
 
 Square.defaultProps = {
 	mark: null,
-	pulse: false
+	pulse: false,
+	disabled: false
 };

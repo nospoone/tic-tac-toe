@@ -25,6 +25,10 @@ describe('Square', () => {
 		const wrapper = shallow(<Square x={0} y={0} mark={null} onClick={() => {}}/>);
 		expect(wrapper.find('div.square--disabled').length).toBe(0);
 	});
+	it('should render a <div /> with the `square--disabled` when the `disabled` prop is set to true', () => {
+		const wrapper = shallow(<Square x={0} y={0} mark={null} onClick={() => {}}/>);
+		expect(wrapper.find('div.square--disabled').length).toBe(0);
+	});
 	it('should render a <Mark /> with its `mark` prop set to `x` when the `mark` prop is `x`', () => {
 		const wrapper = shallow(<Square x={0} y={0} mark="x" onClick={() => {}}/>);
 		expect(wrapper.find(Mark).length).toEqual(1);
@@ -75,6 +79,13 @@ describe('Square', () => {
 		shallow(<Square x={0} y={0}/>);
 		expect(spy).toHaveBeenCalled();
 		expect(spy.mock.calls[0][0]).toContain('The prop `onClick` is marked as required in `Square`, but its value is `undefined`');
+		spy.mockClear();
+	});
+	it('should log a warning when the `disabled` prop is invalid', () => {
+		const spy = jest.spyOn(global.console, 'error').mockImplementation(() => { });
+		shallow(<Square x={0} y={0} disabled="invalid" onClick={() => {}}/>);
+		expect(spy).toHaveBeenCalled();
+		expect(spy.mock.calls[0][0]).toContain('Invalid prop `disabled` of type `string` supplied to `Square`');
 		spy.mockClear();
 	});
 	it('should call the `onClick` prop with the `x, y` parameters when the component is clicked', () => {

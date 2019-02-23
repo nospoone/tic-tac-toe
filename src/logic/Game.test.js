@@ -57,6 +57,19 @@ describe('Game', () => {
 				expect(game.solve(board.board, board.x, board.y)).toBe(false);
 			});
 		});
+		it('should return the winner when storing a move', () => {
+			let result;
+			result = game.storeMove('x', 0, 0);
+			expect(result).toBe(false);
+			result = game.storeMove('o', 0, 1);
+			expect(result).toBe(false);
+			result = game.storeMove('x', 1, 0);
+			expect(result).toBe(false);
+			result = game.storeMove('o', 1, 1);
+			expect(result).toBe(false);
+			result = game.storeMove('x', 2, 0);
+			expect(result).toBe('x');
+		});
 	});
 
 	describe('Serialization & History', () => {

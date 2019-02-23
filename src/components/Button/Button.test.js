@@ -34,6 +34,13 @@ describe('Button', () => {
 		expect(spy.mock.calls[0][0]).toContain('Invalid prop `color` of value `invalid` supplied to `Button`');
 		spy.mockClear();
 	});
+	it('should log a warning if the `onClick` prop is invalid', () => {
+		const spy = jest.spyOn(global.console, 'error').mockImplementation(() => { });
+		shallow(<Button onClick="invalid">Undo</Button>);
+		expect(spy).toHaveBeenCalled();
+		expect(spy.mock.calls[0][0]).toContain('Invalid prop `onClick` of type `string` supplied to `Button`');
+		spy.mockClear();
+	});
 	it('should render a <span/> with a `button` class', () => {
 		const wrapper = shallow(<Button/>);
 		expect(wrapper.find('span.button').length).toEqual(1);
@@ -54,5 +61,11 @@ describe('Button', () => {
 	it('should have the `button--red` class when the `color` prop is set to `red`', () => {
 		const wrapper = shallow(<Button color="red">Reset</Button>);
 		expect(wrapper.find('span.button--red').length).toEqual(1);
+	});
+	it('should call the `onClick` prop method when the <Button/> is clicked', () => {
+		const spy = jest.fn();
+		const wrapper = shallow(<Button onClick={spy}>Reset</Button>);
+		wrapper.simulate('click');
+		expect(spy).toHaveBeenCalled();
 	});
 });

@@ -120,4 +120,40 @@ describe('App', () => {
 		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');
 		expect(wrapper.find('div.button-container').childAt(1).prop('disabled')).toBe(false);
 	});
+	it('should rewind to the start of the game using the undo <Button/> when there are previous moves', () => {
+		const wrapper = mount(<App/>);
+		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');
+		wrapper.find('div.row[data-row=0]').childAt(1).simulate('click');
+		wrapper.find('div.row[data-row=0]').childAt(2).simulate('click');
+		wrapper.find('div.row[data-row=1]').childAt(0).simulate('click');
+		wrapper.find('div.row[data-row=1]').childAt(1).simulate('click');
+		wrapper.find('div.row[data-row=1]').childAt(2).simulate('click');
+		wrapper.find('div.row[data-row=2]').childAt(0).simulate('click');
+
+		for (let i = 0; i < 8; i++) {
+			wrapper.find('div.button-container').childAt(0).simulate('click');
+		}
+
+		expect(wrapper.state('player')).toBe('x');
+		expect(wrapper.instance().game.board).toBe([[null, null, null], [null, null, null], [null, null, null]]);
+		expect(wrapper.instance().game.history).toBe([[[null, null, null], [null, null, null], [null, null, null]]]);
+		expect(wrapper.instance().game.historyCursor).toBe(0);
+	});
+	it('should rewind to the start of the game using the reset <Button/> when there are previous moves', () => {
+		const wrapper = mount(<App/>);
+		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');
+		wrapper.find('div.row[data-row=0]').childAt(1).simulate('click');
+		wrapper.find('div.row[data-row=0]').childAt(2).simulate('click');
+		wrapper.find('div.row[data-row=1]').childAt(0).simulate('click');
+		wrapper.find('div.row[data-row=1]').childAt(1).simulate('click');
+		wrapper.find('div.row[data-row=1]').childAt(2).simulate('click');
+		wrapper.find('div.row[data-row=2]').childAt(0).simulate('click');
+
+		wrapper.find('div.button-container').childAt(1).simulate('click');
+
+		expect(wrapper.state('player')).toBe('x');
+		expect(wrapper.instance().game.board).toBe([[null, null, null], [null, null, null], [null, null, null]]);
+		expect(wrapper.instance().game.history).toBe([[[null, null, null], [null, null, null], [null, null, null]]]);
+		expect(wrapper.instance().game.historyCursor).toBe(0);
+	});
 });

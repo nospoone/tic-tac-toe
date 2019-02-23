@@ -51,8 +51,8 @@ class App extends Component {
 				})}
 				<div className="status">
 					<div className="button-container">
-						<Button color="orange">Undo</Button>
-						<Button color="red">Reset</Button>
+						<Button disabled={this.game.historyCursor === 0} color="orange">Undo</Button>
+						<Button disabled={this.game.historyCursor === 0} color="red">Reset</Button>
 					</div>
 					<TurnIndicator finished player="x"/>
 				</div>

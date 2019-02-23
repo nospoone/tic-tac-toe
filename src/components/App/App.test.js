@@ -52,6 +52,39 @@ describe('App', () => {
 		const wrapper = shallow(<App/>);
 		expect(wrapper.state('player')).toBe('x');
 	});
+	it('should set the O player as the active player on odd turns', () => {
+		const wrapper = mount(<App/>);
+		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');
+		expect(wrapper.state('player')).toBe('o');
+		wrapper.find('div.row[data-row=0]').childAt(1).simulate('click');
+		wrapper.find('div.row[data-row=0]').childAt(2).simulate('click');
+		expect(wrapper.state('player')).toBe('o');
+		wrapper.find('div.row[data-row=1]').childAt(0).simulate('click');
+		wrapper.find('div.row[data-row=1]').childAt(1).simulate('click');
+		expect(wrapper.state('player')).toBe('o');
+		wrapper.find('div.row[data-row=1]').childAt(2).simulate('click');
+		wrapper.find('div.row[data-row=2]').childAt(0).simulate('click');
+		expect(wrapper.state('player')).toBe('o');
+		wrapper.find('div.row[data-row=2]').childAt(1).simulate('click');
+		wrapper.find('div.row[data-row=2]').childAt(2).simulate('click');
+		expect(wrapper.state('player')).toBe('o');
+	});
+	it('should set the X player as the active player on even turns', () => {
+		const wrapper = mount(<App/>);
+		expect(wrapper.state('player')).toBe('x');
+		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');
+		wrapper.find('div.row[data-row=0]').childAt(1).simulate('click');
+		expect(wrapper.state('player')).toBe('x');
+		wrapper.find('div.row[data-row=0]').childAt(2).simulate('click');
+		wrapper.find('div.row[data-row=1]').childAt(0).simulate('click');
+		expect(wrapper.state('player')).toBe('x');
+		wrapper.find('div.row[data-row=1]').childAt(1).simulate('click');
+		wrapper.find('div.row[data-row=1]').childAt(2).simulate('click');
+		expect(wrapper.state('player')).toBe('x');
+		wrapper.find('div.row[data-row=2]').childAt(0).simulate('click');
+		wrapper.find('div.row[data-row=2]').childAt(1).simulate('click');
+		expect(wrapper.state('player')).toBe('x');
+	});
 	it('should correctly set the board state when clicking a <Square/>', () => {
 		const wrapper = mount(<App/>);
 		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');

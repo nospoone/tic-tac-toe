@@ -102,4 +102,22 @@ describe('App', () => {
 		expect(wrapper.instance().game.historyCursor).toBe(1);
 		expect(wrapper.instance().game.board).toEqual([['x', null, null], [null, null, null], [null, null, null]]);
 	});
+	it('should disable the undo <Button/> when there are no previous moves', () => {
+		const wrapper = mount(<App/>);
+		expect(wrapper.find('div.button-container').childAt(0).prop('disabled')).toBe(true);
+	});
+	it('should disable the reset <Button/> when there are no previous moves', () => {
+		const wrapper = mount(<App/>);
+		expect(wrapper.find('div.button-container').childAt(1).prop('disabled')).toBe(true);
+	});
+	it('should enable the undo <Button/> when there are previous moves', () => {
+		const wrapper = mount(<App/>);
+		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');
+		expect(wrapper.find('div.button-container').childAt(0).prop('disabled')).toBe(true);
+	});
+	it('should enable the reset <Button/> when there are previous moves', () => {
+		const wrapper = mount(<App/>);
+		wrapper.find('div.row[data-row=0]').childAt(0).simulate('click');
+		expect(wrapper.find('div.button-container').childAt(1).prop('disabled')).toBe(true);
+	});
 });

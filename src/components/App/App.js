@@ -18,12 +18,14 @@ class App extends Component {
 	}
 
 	handleSquareClick(x, y) {
-		this.game.storeMove(this.state.player, x, y);
-		this.setState(prevState => {
-			return {
-				player: prevState.player === 'x' ? 'o' : 'x'
-			};
-		});
+		if (this.game.board[y][x] === null) {
+			this.game.storeMove(this.state.player, x, y);
+			this.setState(prevState => {
+				return {
+					player: prevState.player === 'x' ? 'o' : 'x'
+				};
+			});
+		}
 	}
 
 	render() {
